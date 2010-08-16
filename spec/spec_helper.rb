@@ -1,9 +1,5 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'rspec'
+require 'rspec/autorun'
 require 'file-spec'
-require 'spec'
-require 'spec/autorun'
-
-Spec::Runner.configure do |config|
-  
-end
+require 'file_spec/file_helper'
+require 'fileutils'
