@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module RSpec::FileMatchers
-  describe HaveFile do
+  describe HaveSymlink do
     describe '#have_symlink' do
       include FileHelper
       
@@ -18,7 +18,7 @@ module RSpec::FileMatchers
       end
 
       it "should have symlink file" do
-        make_symlink_file        
+        make_test_symlink        
         nil.should have_symlink sym_test_file
       end
     
@@ -27,7 +27,7 @@ module RSpec::FileMatchers
       end
       
       it "should have symlink dir" do      
-        make_symlink_dir
+        make_test_symlink_dir
         nil.should have_symlink sym_test_dir
       end
     end

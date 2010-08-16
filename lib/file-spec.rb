@@ -8,7 +8,7 @@ module RSpec
   end
 end
 
-require 'file_spec/matchers/abstract'
+require_all File.dirname(__FILE__) + '/file_spec/matchers/abstract'
 require_all File.dirname(__FILE__) + '/file_spec/matchers'
 
 RSpec.configure do |config|

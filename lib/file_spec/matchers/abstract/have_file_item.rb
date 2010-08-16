@@ -1,5 +1,5 @@
 module RSpec::FileMatchers
-  class Abstract         
+  class HaveFileItem         
     attr_accessor :location
 
     def initialize(*args)

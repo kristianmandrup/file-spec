@@ -8,20 +8,21 @@ See /spec folder for usage examples.
 
 ## TODO
 
-Make more convenience methods:
-
-* have_files file1, file2
-* have_dirs dir1, dir2
-* have_symlinks sym1, sym2
+Currently these do not check file type of target but are just alias of generic have_symlink.
+This must be fixed!
 
 * have_symlink_file sym_file
 * have_symlink_dir sym_dir
+
 * have_symlink_files sym_file1, sym_file2
 * have_symlink_dirs sym_dir1, sym_dir2
 
+## TODO - advanced
+
 * have_file_structure yaml
 
-Should test that the files and dirs match the tree structure of the yaml string (or file)
+Should test that the files and dirs match the tree structure of the yaml string (or file).
+This is very convenient for more complex file structure specs!
 
 ## Note on Patches/Pull Requests
  

@@ -1,25 +1,25 @@
 require 'spec_helper'
 
 module RSpec::FileMatchers
-  describe HaveFile do
-    describe '#have_dir' do
+  describe HaveFiles do
+    describe '#have_files' do
       include FileHelper
       
       before :each do   
-        remove_test_dir
+        remove_test_files
       end
 
       after :each do
-        remove_test_dir
+        remove_test_files
       end
 
       it "should have file" do
-        nil.should_not have_dir test_dir
+        nil.should_not have_files test_files
       end
     
       it "should have file" do      
-        make_test_dir
-        nil.should have_dir test_dir
+        make_test_files
+        nil.should have_files test_files
       end
     end
   end
