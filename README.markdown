@@ -15,29 +15,28 @@ Example: Nested file structure specs
     dir.should have_dir :test do |test_dir|
       test_dir.should have_dirs :test_abc, :test_def
     end
+    dir.should have_symlink :xyz
+    dir.should have_symlink_files 'blip.rb', 'blap.rb', 'logfile.log'
+    dir.should have_symlink_dir 'my-secret-dir'
   end
 end
 </pre>  
 
 See /spec folder for more usage examples.
 
-## TODO
-
-Currently these do not check file type of target but are just alias of generic have_symlink.
-This must be fixed!
-
-* have_symlink_file sym_file
-* have_symlink_dir sym_dir
-
-* have_symlink_files sym_file1, sym_file2
-* have_symlink_dirs sym_dir1, sym_dir2
-
 ## TODO - advanced
 
 * have_file_structure yaml
 
-Should test that the files and dirs match the tree structure of the yaml string (or file).
+Should test that the files and dirs match the tree structure as indicated by the yaml string (or file).
 This is very convenient for more complex file structure specs!
+<pre>
+mydir:
+  - file1.txt
+  - file2.txt
+  subdir1: [abc.rb, def.rb]
+  subdir2: [x.txt, logfile.log] 
+</pre>
 
 ## Note on Patches/Pull Requests
  
