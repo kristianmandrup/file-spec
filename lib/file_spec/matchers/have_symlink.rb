@@ -2,7 +2,7 @@ module RSpec::FileMatchers
   class HaveSymlink < HaveFileItem
 
     def artifact
-      'symlink'
+      :symlink
     end    
   end
 
@@ -22,7 +22,7 @@ module RSpec::FileMatchers
   class HaveSymlinks < HaveFileItems
 
     def artifact
-      'symlink'
+      :symlink
     end    
   end
 

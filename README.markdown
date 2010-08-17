@@ -4,15 +4,17 @@ RSpec 2 matcher to specify expected file structures.
 
 ## Usage
 
-The following demonstrates expectation nesting, a recent feature (no specs yet, as of Aug 17, 2010). 
-Each block is evaluated in a new Dir context, using a Dir#chdir block construct.
+The following demonstrates File expectation nesting to test a File hierarchy structure!
+Each block is evaluated in a new Dir context, using a Dir#chdir block.
 
 Example: Nested file structure specs
 <pre>
-Dir.chdir(my_path).should have_file 'hello.txt' do |dir|
-  dir.should have_files 'abc.rb', 'def.rb'
-  dir.should have_dir 'test' do |test_dir|
-    test_dir.should have_dirs 'test_abc', 'test_def'
+  Dir.chdir(my_path)
+  Dir.pwd.should have_file 'hello.txt' do |dir|
+    dir.should have_files 'abc.rb', 'def.rb'
+    dir.should have_dir :test do |test_dir|
+      test_dir.should have_dirs :test_abc, :test_def
+    end
   end
 end
 </pre>  

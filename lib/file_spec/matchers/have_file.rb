@@ -2,7 +2,7 @@ module RSpec::FileMatchers
   class HaveFile < HaveFileItem
     
     def artifact
-      'file'
+      :file
     end
   end
 
@@ -16,7 +16,7 @@ module RSpec::FileMatchers
   class HaveFiles < HaveFileItems
     
     def artifact
-      'file'
+      :file
     end
   end
 

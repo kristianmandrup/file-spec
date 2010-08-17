@@ -1,14 +1,30 @@
 module RSpec::FileMatchers
   class HaveFileItems
-    attr_accessor :file_items
+    attr_accessor :file_items, :location
 
     def initialize(*file_items)
       self.file_items = file_items.flatten
     end
 
-    def matches? x=nil, &block
-      file_item_names.each do |location|       
-        return false if  !File.send(:"#{artifact}?", location)
+    def matches? relative_path=nil, &block
+      case relative_path
+      when File, Dir             
+        full_path = File.expand_path(relative_path.path)
+        @location = File.dirname(full_path) if !@location
+      when String                        
+        begin
+          full_path = File.expand_path(relative_path)        
+          if File.directory?(full_path)
+            @location = full_path if !@location
+          end
+        rescue
+          raise ArgumentError, "The path string #{relative_path} could not be resolved to an existing directory on this filesystem."
+        end
+      end      
+      
+      file_item_names.each do |loc|                  
+        path = location ? File.join(location, loc) : loc
+        return false if  !File.send(:"#{artifact}?", path)
       end
       true
     end          
@@ -23,12 +39,12 @@ module RSpec::FileMatchers
   
     def failure_message                                                               
       return "Expected #{artifact} #{file_item_names.first} to exist, but it did not" if file_items.size == 1
-      "Expected #{artifact.pluralize} [#{file_item_names}] to exist, but they did not"
+      "Expected #{artifact.to_s.pluralize} #{file_item_names} to exist, but they did not"
     end
 
     def negative_failure_message
       return "Did not expect #{artifact} #{file_item_names.first} to exist, but it did" if file_items.size == 1
-      "Did not expect #{artifact.pluralize} [#{file_item_names}] to exist, but they did"
+      "Did not expect #{artifact.to_s.pluralize} #{file_item_names} to exist, but they did"
     end    
   end
 

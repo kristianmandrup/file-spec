@@ -2,7 +2,7 @@ module RSpec::FileMatchers
   class HaveDir < HaveFileItem
 
     def artifact
-      'directory'
+      :directory
     end  
   end
 
@@ -15,7 +15,7 @@ module RSpec::FileMatchers
   class HaveDirs < HaveFileItems
 
     def artifact
-      'directory'
+      :directory
     end  
   end
 

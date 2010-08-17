@@ -1,14 +1,29 @@
 module FileHelper
+  def remove_all_test
+    remove_test_files
+    remove_test_dirs
+    remove_test_symlinks
+    remove_test_symlink_dirs
+  end
+
   def test_file
     'test.txt'
   end
 
+  def test_file2
+    'test2.txt'
+  end
+
   def test_files
-    [test_file, 'test2.txt'] 
+    [test_file, test_file2] 
   end
 
   def sym_test_file
-    'sym-test.txt'
+    "sym-#{test_file}"
+  end
+
+  def sym_test_file2
+    "sym-#{test_file2}"
   end
 
   def sym_test_files
@@ -19,23 +34,26 @@ module FileHelper
     'test'
   end
 
+  def test_dir2
+    'test2'
+  end
+
+
   def test_dirs
-    [test_dir, 'test2']
+    [test_dir, test_dir2]
   end
 
   def sym_test_dir
-    'sym-test'
+    'sym-test-dir'
   end
+
+  def sym_test_dir2
+    "#{sym_test_dir}2"
+  end
+
 
   def sym_test_dirs
-    [sym_test_dir, 'sym-test2']
-  end
-
-  def remove_all_test
-    remove_test_files
-    remove_test_dirs
-    remove_test_symlinks
-    remove_test_symlink_dirs
+    [sym_test_dir, sym_test_dir2]
   end
     
   def make_test_file 
@@ -47,11 +65,11 @@ module FileHelper
   end
   
   def make_file file
-    File.open(file, 'w') {|f| f.write "hello" }    
+    File.open(file, 'w') {|f| f.write "hello" }
   end
 
   def remove_file file
-    ::FileUtils.rm_f file
+    File.delete file if File.exist? file
   end
 
   def remove_test_file
@@ -63,7 +81,7 @@ module FileHelper
   end
 
   def make_dir dir
-    ::FileUtils.mkdir dir
+    Dir.mkdir dir if !File.directory? dir
   end
 
   def make_test_dir
@@ -74,8 +92,17 @@ module FileHelper
     test_dirs.each{|dir| make_dir dir}
   end
 
+  def make_nested_test_dirs
+    make_test_dir
+    FileUtils.chdir test_dir do          
+      make_test_dirs        
+      make_test_files
+    end
+  end
+
+
   def remove_dir dir
-    ::FileUtils.rm_rf dir
+    FileUtils.rm_rf dir if File.directory? dir
   end
 
   def remove_test_dir
