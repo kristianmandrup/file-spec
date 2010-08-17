@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{file-spec}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-08-16}
+  s.date = %q{2010-08-17}
   s.description = %q{RSpec 2 matchers for files, directories and symlinks}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "file-spec.gemspec",
      "lib/file-spec.rb",
      "lib/file_spec/file_helper.rb",
      "lib/file_spec/matchers/abstract/have_file_item.rb",
