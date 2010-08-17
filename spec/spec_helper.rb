@@ -1,5 +1,4 @@
 require 'rspec'
 require 'rspec/autorun'
 require 'file-spec'
-require 'file_spec/file_helper'
 require 'fileutils'

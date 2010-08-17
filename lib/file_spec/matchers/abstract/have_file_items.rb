@@ -1,9 +1,14 @@
 module RSpec::FileMatchers
   class HaveFileItems
-    attr_accessor :file_items, :location
+    attr_accessor :file_items, :location, :symlink_type
 
     def initialize(*file_items)
-      self.file_items = file_items.flatten
+      items = file_items.flatten
+      case items.last
+      when Hash
+        self.symlink_type = items.last[:type]
+      end
+      self.file_items = items.select{|item| !item.kind_of? Hash}
     end
 
     def matches? relative_path=nil, &block
@@ -24,7 +29,20 @@ module RSpec::FileMatchers
       
       file_item_names.each do |loc|                  
         path = location ? File.join(location, loc) : loc
-        return false if  !File.send(:"#{artifact}?", path)
+        bad = !File.send(:"#{artifact}?", path)
+        
+        if artifact == :symlink && !bad    
+          sym_path = File.readlink(path)
+          case symlink_type
+          when :dir, :directory
+            bad = !File.directory?(sym_path)
+          when :file
+            bad = !File.file?(sym_path)
+          else
+            raise ArgumentError, "Bad symlink type #{symlink_type}, must be either :file or :dir" if symlink_type
+          end
+        end
+        return false if bad
       end
       true
     end          

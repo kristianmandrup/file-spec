@@ -6,7 +6,7 @@ module RSpec::FileMatchers
       include FileHelper
       
       before :each do   
-        remove_test_file
+        remove_all_test
       end
 
       after :each do

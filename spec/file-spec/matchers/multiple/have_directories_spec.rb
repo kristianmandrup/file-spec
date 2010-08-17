@@ -6,11 +6,11 @@ module RSpec::FileMatchers
       include FileHelper
       
       before :each do   
-        remove_test_dirs
+        remove_all_test
       end
 
       after :each do
-        remove_test_dirs
+        remove_all_test
       end
 
       it "should not have 'test' dirs" do

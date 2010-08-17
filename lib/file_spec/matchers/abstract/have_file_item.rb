@@ -1,6 +1,6 @@
 module RSpec::FileMatchers
   class HaveFileItem         
-    attr_accessor :location
+    attr_accessor :location, :symlink_type
 
     def initialize(*args)
       self.location = get_location(args).to_s
@@ -8,6 +8,12 @@ module RSpec::FileMatchers
 
     def get_location(*args)
       args = args.flatten
+
+      case args.last
+      when Hash
+        self.symlink_type = args.last[:type]
+      end
+      
       loc = if args.size > 1
         dir, name = *args
         File.join(dir.to_s, name.to_s)
@@ -29,6 +35,17 @@ module RSpec::FileMatchers
       end      
 
       match = File.send :"#{artifact}?", location
+      if artifact == :symlink
+        case symlink_type
+        when :dir, :directory
+          match = File.readlink(location).directory?
+        when :file
+          match = File.readlink(location).file?
+        else
+          raise ArgumentError, "Bad symlink type #{symlink_type}, must be either :file or :dir" if symlink_type
+        end
+      end
+            
       if block && match   
         case artifact
         when :directory
@@ -36,7 +53,7 @@ module RSpec::FileMatchers
             yield Dir.new(location)
           end
         when :file        
-          yield File.new(location)
+          yield File.new(location)          
         end      
       end
       match

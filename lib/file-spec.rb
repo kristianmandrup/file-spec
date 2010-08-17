@@ -10,6 +10,7 @@ end
 
 require_all File.dirname(__FILE__) + '/file_spec/matchers/abstract'
 require_all File.dirname(__FILE__) + '/file_spec/matchers'
+require_all File.dirname(__FILE__) + '/file_spec/file_helpers'
 
 RSpec.configure do |config|
   config.include(RSpec::FileMatchers)  

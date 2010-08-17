@@ -18,7 +18,7 @@ module RSpec::FileMatchers
       end
 
       it "should have symlink files" do
-        make_test_symlinks        
+        make_test_symlink_files        
         nil.should have_symlinks sym_test_files
       end
     
