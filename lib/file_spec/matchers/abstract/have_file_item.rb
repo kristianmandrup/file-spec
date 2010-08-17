@@ -19,14 +19,15 @@ module RSpec::FileMatchers
     def matches? relative_path, &block
       case relative_path
       when File, Dir
-        self.location = relative_path
+        self.location = relative_path if !location
         Dir.chdir File.dirname(location)
-      when String
-        self.location = relative_path if File.exist?(relative_path)
-        Dir.chdir File.dirname(location)        
+      when String                        
+        if File.exist?(relative_path)      
+          self.location = relative_path if !location
+          Dir.chdir File.dirname(location) 
+        end
       end      
 
-      puts location.inspect
       match = File.send :"#{artifact}?", location
       if block && match
         case artifact
