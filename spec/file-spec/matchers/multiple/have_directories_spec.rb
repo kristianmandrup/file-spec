@@ -21,6 +21,11 @@ module RSpec::FileMatchers
         make_test_dirs
         nil.should have_dirs test_dirs
       end
+
+      it "should have 'test' dirs in the current dir" do      
+        make_test_dirs
+        Dir.pwd.should have_dirs test_dirs
+      end
     end
   end
 end

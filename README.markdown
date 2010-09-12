@@ -26,6 +26,7 @@ See /spec folder for more usage examples.
 
 ## TODO - advanced
 
+* use Dir.tmpdir
 * have_file_structure yaml
 
 Should test that the files and dirs match the tree structure as indicated by the yaml string (or file).

@@ -1,6 +1,7 @@
 require 'rspec'
 require 'require_all'      
 require 'fileutils'
+require 'tmpdir'
 require 'active_support/inflector'      
 
 module RSpec
