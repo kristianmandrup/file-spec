@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2010-08-17}
+  s.date = %q{2010-09-04}
   s.description = %q{RSpec 2 matchers for files, directories and symlinks}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
