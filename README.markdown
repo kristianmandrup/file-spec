@@ -1,6 +1,9 @@
 # File spec
 
-RSpec 2 matcher to specify expected file structures.
+RSpec 2 matcher to specify expected file structures. 
+
+This gem is used extensively by some of my Rails 3 assistance gems such as *rails3_assist*, *rails3_artifactor* and *rails-app-spec* which all assist you in 
+operating on various kinds of Rails 3 artifacts.
 
 ## Usage
 
