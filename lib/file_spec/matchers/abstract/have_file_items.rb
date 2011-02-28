@@ -1,3 +1,5 @@
+require 'sugar-high/kind_of'
+
 module RSpec::FileMatchers
   class HaveFileItems
     attr_accessor :file_items, :location, :symlink_type
@@ -8,24 +10,27 @@ module RSpec::FileMatchers
       when Hash
         self.symlink_type = items.last[:type]
       end
-      self.file_items = items.select{|item| !item.kind_of? Hash}
+      self.file_items = items.select{|item| !item.kind_of? Hash}.map {|f| f.any_kind_of?(File, Dir) ? f.path : f }
     end
 
     def matches? relative_path=nil, &block
       case relative_path
-      when File, Dir             
+      when File             
         full_path = File.expand_path(relative_path.path)
         @location = File.dirname(full_path) if !@location
+      when Dir
+        full_path = File.expand_path(relative_path.path)
+        @location = full_path if !@location
       when String                        
         begin
-          full_path = File.expand_path(relative_path)        
+          full_path = File.expand_path(relative_path)
           if File.directory?(full_path)
             @location = full_path if !@location
           end
         rescue
           raise ArgumentError, "The path string #{relative_path} could not be resolved to an existing directory on this filesystem."
         end
-      end      
+      end
       
       file_item_names.each do |loc|                  
         path = location ? File.join(location, loc) : loc

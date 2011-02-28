@@ -26,6 +26,12 @@ module RSpec::FileMatchers
         make_test_dirs
         Dir.pwd.should have_dirs test_dirs
       end
+
+      it "should have 'test' dirs in the current Dir" do      
+        make_test_dirs 
+        dir = Dir.new(Dir.pwd)
+        dir.should have_dirs test_dirs
+      end
     end
   end
 end

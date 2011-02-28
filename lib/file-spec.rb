@@ -3,6 +3,7 @@ require 'require_all'
 require 'fileutils'
 require 'tmpdir'
 require 'active_support/inflector'      
+require 'sugar-high'
 
 module RSpec
   module FileMatchers

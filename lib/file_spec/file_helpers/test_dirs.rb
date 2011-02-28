@@ -12,6 +12,10 @@ module FileHelper
       def test_dirs
         [test_dir, test_dir2]
       end
+
+      def nested_test_dirs
+        ['nested1', 'nested2']
+      end
     end
     
     module Make
@@ -27,10 +31,15 @@ module FileHelper
         test_dirs.each{|dir| make_dir dir}
       end
 
+      def make_nested_dirs
+        nested_test_dirs.each{|dir| make_dir dir}
+      end
+
+
       def make_nested_test_dirs
         make_test_dir
         FileUtils.chdir test_dir do          
-          make_test_dirs        
+          make_nested_dirs        
           make_test_files
         end
       end
