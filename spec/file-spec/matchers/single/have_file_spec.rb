@@ -4,8 +4,8 @@ module RSpec::FileMatchers
   describe HaveFile do
     describe '#have_file' do
       include FileHelper
-      
-      before :each do   
+
+      before :each do
         remove_all_test
       end
 
@@ -16,8 +16,8 @@ module RSpec::FileMatchers
       it "should have file" do
         nil.should_not have_file test_file
       end
-    
-      it "should have file" do      
+
+      it "should have file" do
         make_test_file
         nil.should have_file test_file
       end
